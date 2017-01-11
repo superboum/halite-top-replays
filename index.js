@@ -26,7 +26,8 @@ function downloadReplay(name, cb) {
     console.log("already downloaded");
     cb("downloaded");
   } else {
-    request('https://s3.amazonaws.com/halitereplaybucket/'+name, function(error, response, body) {
+    console.log('https://s3.amazonaws.com/halitereplaybucket/'+name);
+    request({ method: 'GET', uri: 'https://s3.amazonaws.com/halitereplaybucket/'+name, gzip: true}, function(error, response, body) {
       if (!error && response.statusCode == 200) {
         cb(null, body);
       } else {
